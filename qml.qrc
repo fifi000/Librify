@@ -3,5 +3,10 @@
         <file>main.qml</file>
         <file>UI/NavBar/NavBar.qml</file>
         <file>UI/NavBar/NavButton.qml</file>
+        <file>UI/assets/loupe.png</file>
+        <file>UI/TopBar/TopBar.qml</file>
+        <file>UI/TopBar/SearchBar.qml</file>
+        <file>UI/assets/plus.png</file>
+        <file>UI/MainControllers/Reading.qml</file>
     </qresource>
 </RCC>
