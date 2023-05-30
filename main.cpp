@@ -3,7 +3,7 @@
 #include <QQmlContext>
 #include <iostream>
 
-#include "Controllers/Models/bookmodel.h"
+#include "Controllers/Models/book_model.h"
 
 QVector<BookModel *> sampleBooks(int n)
 {
@@ -12,8 +12,10 @@ QVector<BookModel *> sampleBooks(int n)
     for (int i = 0; i < n; i++)
     {
         BookModel *book = new BookModel();
-        book->setAuthor("G. Orwell");
         book->setTitle("1984");
+        book->setAuthor("G. Orwell");
+        book->setCover(QImage(":/UI/assets/sample_cover.jpg"));
+        book->setReadingStatus(Reading);
         books.append(book);
     }
 
@@ -28,6 +30,8 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QVector<BookModel *> m_books = sampleBooks(25);
+
+    qmlRegisterType<BookModel>("test.test", 1, 0, "BookModel");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
