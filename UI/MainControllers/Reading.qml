@@ -1,22 +1,28 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.0
-import test.test 1.0
+import QtQuick.Controls 2.15
 
 Rectangle {
     color: "royalblue"
 
-    Flow {
+    ScrollView {
+        clip: true
         anchors.fill: parent
-        anchors.margins: 15
-        spacing: 10
+        padding: 15
 
-        Repeater {
-            model: Books
+        Flow {
+            id: content
+            width: parent.parent.width
+            spacing: 10
 
-            Image {
-                height: 180
-                fillMode: Image.PreserveAspectFit
-                source: Qt.resolvedUrl(modelData.Picture)
+            Repeater {
+                model: Books
+
+                Image {
+                    height: 250
+                    fillMode: Image.PreserveAspectFit
+                    source: Qt.resolvedUrl(modelData.Picture)
+                }
             }
         }
     }
