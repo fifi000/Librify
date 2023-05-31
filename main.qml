@@ -11,6 +11,8 @@ Window {
     property string appFontFamily: "Segoe UI"
     property int fontSize: 24
 
+    property variant readingStatuses: ["Reading", "To Read", "Finished"]
+
     id: mainWindow
     width: 1280
     height: 720

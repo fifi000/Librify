@@ -3,8 +3,8 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls 2.15
 
 Rectangle {
-    color: "royalblue"
 
+    color: "royalblue"
     ScrollView {
         clip: true
         anchors.fill: parent

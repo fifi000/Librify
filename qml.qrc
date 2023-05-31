@@ -9,5 +9,6 @@
         <file>UI/assets/plus.png</file>
         <file>UI/MainControllers/Reading.qml</file>
         <file>UI/assets/sample_cover.jpg</file>
+        <file>UI/BookForm/BookForm.qml</file>
     </qresource>
 </RCC>

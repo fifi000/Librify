@@ -1,8 +1,9 @@
 import QtQuick 2.15
 
+import "../BookForm"
+
 Rectangle {
     property int sideMargine: 15
-
     id: upperBar
 
     SearchBar {
@@ -26,5 +27,31 @@ Rectangle {
             verticalCenter: parent.verticalCenter
         }
         source: "qrc:/UI/assets/plus.png"
+
+        MouseArea {
+            anchors.fill: plusBtn
+            onClicked: {
+                if (bookFormDialog.opened === false) {
+                    bookFormDialog.open()
+                }
+            }
+        }
+    }
+
+    BookForm {
+        id: bookFormDialog
+
+        onOpened: {
+            bookFormDialog.bookTitle = ""
+            bookFormDialog.bookAuthor = ""
+            bookFormDialog.bookDescription = ""
+            bookFormDialog.bookCover = null
+            bookFormDialog.readingStatus = ""
+        }
+
+        onAccepted: {
+            console.log("Book added succesfully")
+            close()
+        }
     }
 }
