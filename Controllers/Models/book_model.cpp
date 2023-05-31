@@ -59,6 +59,18 @@ void BookModel::setCover(const QImage &newCover)
     emit CoverChanged();
 }
 
+QString BookModel::Picture()
+{
+    QByteArray bArray;
+    QBuffer buffer(&bArray);
+    buffer.open(QIODevice::WriteOnly);
+    this->m_Cover.save(&buffer, "JPG");
+
+    QString image("data:image/jpg;base64," + QString::fromLatin1(bArray.toBase64().data()));
+
+    return image;
+}
+
 Status BookModel::ReadingStatus() const
 {
     return m_ReadingStatus;
@@ -70,16 +82,4 @@ void BookModel::setReadingStatus(Status newReadingStatus)
         return;
     m_ReadingStatus = newReadingStatus;
     emit ReadingStatusChanged();
-}
-
-QString BookModel::Picture()
-{
-    QByteArray bArray;
-    QBuffer buffer(&bArray);
-    buffer.open(QIODevice::WriteOnly);
-    this->m_Cover.save(&buffer, "JPG");
-
-    QString image("data:image/jpg;base64," + QString::fromLatin1(bArray.toBase64().data()));
-
-    return image;
 }

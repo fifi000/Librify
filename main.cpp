@@ -43,7 +43,6 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     QQmlContext *context(engine.rootContext());
-    //    context->setContextProperty("Books", &m_books);
     context->setContextProperty("Books", QVariant::fromValue(m_books));
 
     return app.exec();

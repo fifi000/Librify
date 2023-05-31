@@ -4,8 +4,8 @@
 enum Status
 {
     Reading,
-    Finished,
-    ToRead
+    ToRead,
+    Finished
 };
 
 #endif // ENUMS_H

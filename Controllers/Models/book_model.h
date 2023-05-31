@@ -14,7 +14,7 @@ class BookModel : public QObject
     Q_PROPERTY(QString Description READ Description WRITE setDescription NOTIFY DescriptionChanged)
     Q_PROPERTY(QImage Cover READ Cover WRITE setCover NOTIFY CoverChanged)
     Q_PROPERTY(Status ReadingStatus READ ReadingStatus WRITE setReadingStatus NOTIFY ReadingStatusChanged)
-    Q_PROPERTY(QString Picture READ Picture)
+    Q_PROPERTY(QString Picture READ Picture CONSTANT)
   public:
     explicit BookModel(QObject *parent = nullptr);
 
@@ -30,10 +30,10 @@ class BookModel : public QObject
     QImage Cover() const;
     void setCover(const QImage &newCover);
 
+    QString Picture();
+
     Status ReadingStatus() const;
     void setReadingStatus(Status newReadingStatus);
-
-    QString Picture();
 
   signals:
 
@@ -52,8 +52,8 @@ class BookModel : public QObject
     QString m_Author;
     QString m_Description;
     QImage m_Cover;
-    Status m_ReadingStatus;
     QString m_Picture;
+    Status m_ReadingStatus;
 };
 
 #endif // BOOKMODEL_H
