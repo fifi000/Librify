@@ -83,3 +83,16 @@ void BookModel::setReadingStatus(Status newReadingStatus)
     m_ReadingStatus = newReadingStatus;
     emit ReadingStatusChanged();
 }
+
+int BookModel::Id() const
+{
+    return m_Id;
+}
+
+void BookModel::setId(int newId)
+{
+    if (m_Id == newId)
+        return;
+    m_Id = newId;
+    emit IdChanged();
+}

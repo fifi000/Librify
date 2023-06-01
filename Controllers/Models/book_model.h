@@ -9,6 +9,7 @@
 class BookModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int Id READ Id WRITE setId NOTIFY IdChanged)
     Q_PROPERTY(QString Title READ Title WRITE setTitle NOTIFY TitleChanged)
     Q_PROPERTY(QString Author READ Author WRITE setAuthor NOTIFY AuthorChanged)
     Q_PROPERTY(QString Description READ Description WRITE setDescription NOTIFY DescriptionChanged)
@@ -35,6 +36,9 @@ class BookModel : public QObject
     Status ReadingStatus() const;
     void setReadingStatus(Status newReadingStatus);
 
+    int Id() const;
+    void setId(int newId);
+
   signals:
 
     void TitleChanged();
@@ -47,6 +51,8 @@ class BookModel : public QObject
 
     void ReadingStatusChanged();
 
+    void IdChanged();
+
   private:
     QString m_Title;
     QString m_Author;
@@ -54,6 +60,7 @@ class BookModel : public QObject
     QImage m_Cover;
     QString m_Picture;
     Status m_ReadingStatus;
+    int m_Id;
 };
 
 #endif // BOOKMODEL_H
