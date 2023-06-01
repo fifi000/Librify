@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
 
 Dialog {
     title: "Add Book"
@@ -8,8 +7,8 @@ Dialog {
     property string bookTitle: ""
     property string bookAuthor: ""
     property string bookDescription: ""
-    property var bookCover: null
     property string readingStatus: ""
+    property string bookCoverPath: ""
 
     width: parent.width / 3
     padding: 15
@@ -79,28 +78,29 @@ Dialog {
                 left: parent.left
                 right: parent.right
             }
-            height: 100
+            height: 180
             DropArea {
                 id: coverDropArea
                 anchors.fill: parent
-                onEntered: {
-                    if (drag.hasImage) {
-                        bookCover = drag.image
-                    }
-                }
                 onDropped: {
-                    if (drag.hasImage) {
-                        bookCover = drag.image
+                    if (drop.hasUrls) {
+                        bookCoverPath = drop.urls[0]
+                        console.log("Path: " + bookCoverPath)
                     }
                 }
                 Rectangle {
                     anchors.fill: parent
+                    anchors {
+                        leftMargin: parent.width * 0.2
+                        rightMargin: parent.width * 0.2
+                    }
                     border.width: 2
                     border.color: "gray"
                     color: "lightgray"
                     Image {
                         anchors.fill: parent
-                        source: bookCover ? Qt.resolvedUrl(bookCover) : ""
+                        source: (bookCoverPath !== "") ? Qt.resolvedUrl(
+                                                             bookCoverPath) : ""
                         fillMode: Image.PreserveAspectFit
                     }
                 }

@@ -45,7 +45,7 @@ Rectangle {
             bookFormDialog.bookTitle = ""
             bookFormDialog.bookAuthor = ""
             bookFormDialog.bookDescription = ""
-            bookFormDialog.bookCover = null
+            bookFormDialog.bookCoverPath = ""
             bookFormDialog.readingStatus = ""
         }
 
