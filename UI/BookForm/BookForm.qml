@@ -83,9 +83,9 @@ Dialog {
                 id: coverDropArea
                 anchors.fill: parent
                 onDropped: {
+                    bookCoverPath = ""
                     if (drop.hasUrls) {
                         bookCoverPath = drop.urls[0]
-                        console.log("Path: " + bookCoverPath)
                     }
                 }
                 Rectangle {
