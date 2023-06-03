@@ -20,6 +20,8 @@ set(PROJECT_SOURCES
         Controllers/database_controller.cpp
         Controllers/database_controller.h
         Controllers/enums.h
+        Controllers/book_manager.cpp
+        Controllers/book_manager.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
