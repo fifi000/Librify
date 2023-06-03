@@ -134,11 +134,10 @@ Dialog {
 
             onClicked: {
                 if (titleField.text.trim() === "" || authorField.text.trim(
-                            ) === "") {
-                    // Display an error message if required fields are empty
+                            ) === "" || readingStatus.trim() === "") {
+
                     console.log("Please enter the title and author.")
                 } else {
-                    // Emit a signal to notify the parent component about the new book
                     bookFormDialog.accepted()
                 }
             }
