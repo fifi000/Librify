@@ -50,7 +50,8 @@ Rectangle {
         }
 
         onAccepted: {
-            console.log("Book added succesfully")
+            BookManager.addBook(bookTitle, bookAuthor, bookDescription,
+                                bookCoverPath, readingStatus)
             close()
         }
     }

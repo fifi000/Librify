@@ -4,23 +4,7 @@
 #include <iostream>
 
 #include "Controllers/Models/book_model.h"
-
-QVector<BookModel *> sampleBooks(int n)
-{
-    QVector<BookModel *> books;
-
-    for (int i = 0; i < n; i++)
-    {
-        BookModel *book = new BookModel();
-        book->setTitle("1984");
-        book->setAuthor("G. Orwell");
-        book->setCover(QImage(":/UI/assets/sample_cover.jpg"));
-        book->setReadingStatus(Reading);
-        books.append(book);
-    }
-
-    return books;
-}
+#include "Controllers/book_manager.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,11 +12,11 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
+    BookManager m_bookManager;
+    m_bookManager.changeStatus("Reading");
 
-    QVector<BookModel *> m_books = sampleBooks(25);
-
-    qmlRegisterType<BookModel>("test.test", 1, 0, "BookModel");
-
+    // default stuff
+    // ====================================================
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -41,9 +25,12 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
     engine.load(url);
+    // ====================================================
+
+    qmlRegisterType<BookModel>("test.test", 1, 0, "BookModel");
 
     QQmlContext *context(engine.rootContext());
-    context->setContextProperty("Books", QVariant::fromValue(m_books));
+    context->setContextProperty("BookManager", &m_bookManager);
 
     return app.exec();
 }

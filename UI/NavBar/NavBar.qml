@@ -16,6 +16,9 @@ Rectangle {
             right: parent.right
         }
         text: "Reading"
+        onClicked: {
+            BookManager.changeStatus("Reading")
+        }
     }
 
     // Finished
@@ -28,6 +31,9 @@ Rectangle {
             right: parent.right
         }
         text: "Finished"
+        onClicked: {
+            BookManager.changeStatus("Finished")
+        }
     }
 
     // To Read
@@ -40,5 +46,8 @@ Rectangle {
             right: parent.right
         }
         text: "To Read"
+        onClicked: {
+            BookManager.changeStatus("To Read")
+        }
     }
 }

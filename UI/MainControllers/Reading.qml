@@ -3,6 +3,8 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls 2.15
 
 Rectangle {
+    property int bookWidth: 180
+    property int bookMaxHeight: 1.5 * bookWidth
 
     color: "royalblue"
     ScrollView {
@@ -16,10 +18,10 @@ Rectangle {
             spacing: 10
 
             Repeater {
-                model: Books
+                model: BookManager.Books
 
                 Image {
-                    height: 250
+                    width: bookWidth
                     fillMode: Image.PreserveAspectFit
                     source: Qt.resolvedUrl(modelData.Picture)
                 }
