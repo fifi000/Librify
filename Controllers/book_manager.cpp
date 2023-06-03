@@ -75,19 +75,33 @@ void BookManager::addBook(QString title, QString author, QString description, QS
 }
 
 void BookManager::changeStatus(QString status)
-{
+{   
     if (StatusConventer.contains(status))
     {
         for (int i = 0; i < this->m_Books.count(); i++)
         {
             delete m_Books.at(i);
         }
-        setBooks(m_DbController.ReadByStatus(StatusConventer[status]));
+        this->m_CurrentStatus = StatusConventer[status];
+        setBooks(m_DbController.ReadByStatus(this->m_CurrentStatus));
     }
     else
     {
         qDebug() << "Status '" << status << "' not found.";
     }
+}
+
+QString BookManager::getStringStatus()
+{
+    for (auto it = StatusConventer.begin(); it != StatusConventer.end(); ++it)
+    {
+        if (it.value() == this->m_CurrentStatus)
+        {
+            return it.key();
+        }
+    }
+
+    return "";
 }
 
 QVector<BookModel *> BookManager::Books() const
