@@ -60,15 +60,18 @@ void BookModel::setCover(const QImage &newCover)
 }
 
 QString BookModel::Picture()
-{
+{    
     QByteArray bArray;
     QBuffer buffer(&bArray);
     buffer.open(QIODevice::WriteOnly);
-    this->m_Cover.save(&buffer, "JPG");
+    this->m_Cover.save(&buffer, "PNG");
 
-    QString image("data:image/jpg;base64," + QString::fromLatin1(bArray.toBase64().data()));
+    if (bArray.isEmpty())
+    {
+        return "";
+    }
 
-    return image;
+    return "data:image/PNG;base64," + QString::fromLatin1(bArray.toBase64().data());
 }
 
 Status BookModel::ReadingStatus() const
