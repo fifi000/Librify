@@ -6,7 +6,6 @@ Rectangle {
     property int bookWidth: 180
     property int bookMaxHeight: 1.5 * bookWidth
 
-    color: "royalblue"
     ScrollView {
         clip: true
         anchors.fill: parent

@@ -24,20 +24,17 @@ Window {
     NavBar {
         id: leftSideBar
         width: 140
-        color: "purple"
-        hoverDarkColor: "darkmagenta"
-
         anchors {
             left: parent.left
             top: parent.top
             bottom: parent.bottom
         }
+        color: "lightgrey"
     }
 
     TopBar {
         id: upperBar
         height: 72
-        color: "darkgreen"
         anchors {
             left: leftSideBar.right
             right: parent.right

@@ -6,10 +6,16 @@ Rectangle {
 
     id: navBar
 
+    function updateButtonHighlight() {
+        const status = BookManager.getStringStatus()
+        readingLink.highlighted = readingLink.text === status
+        finishedLink.highlighted = finishedLink.text === status
+        toReadLink.highlighted = toReadLink.text === status
+    }
+
     // Reading
     NavButton {
         id: readingLink
-        hoverColor: hoverDarkColor
         anchors {
             top: parent.top
             left: parent.left
@@ -18,13 +24,14 @@ Rectangle {
         text: "Reading"
         onClicked: {
             BookManager.changeStatus("Reading")
+            updateButtonHighlight()
         }
+        highlighted: true
     }
 
     // Finished
     NavButton {
         id: finishedLink
-        hoverColor: hoverDarkColor
         anchors {
             top: readingLink.bottom
             left: parent.left
@@ -33,13 +40,13 @@ Rectangle {
         text: "Finished"
         onClicked: {
             BookManager.changeStatus("Finished")
+            updateButtonHighlight()
         }
     }
 
     // To Read
     NavButton {
         id: toReadLink
-        hoverColor: hoverDarkColor
         anchors {
             top: finishedLink.bottom
             left: parent.left
@@ -48,6 +55,7 @@ Rectangle {
         text: "To Read"
         onClicked: {
             BookManager.changeStatus("To Read")
+            updateButtonHighlight()
         }
     }
 }
