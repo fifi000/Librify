@@ -5,7 +5,7 @@ Dialog {
     property string bookTitle: ""
     property string bookAuthor: ""
     property string bookDescription: ""
-    property string readingStatus: ""
+    property string readingStatus: BookManager.getStringStatus()
     property string bookCoverPath: ""
 
     property alias loader: mainColumnLoader
@@ -102,6 +102,7 @@ Dialog {
                     border.color: "gray"
                     color: "lightgray"
                     Image {
+                        id: coverField
                         anchors.fill: parent
                         source: (bookCoverPath !== "") ? Qt.resolvedUrl(
                                                              bookCoverPath) : ""

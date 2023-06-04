@@ -49,7 +49,7 @@ Rectangle {
             bookAuthor = ""
             bookDescription = ""
             bookCoverPath = ""
-            readingStatus = ""
+            readingStatus = BookManager.getStringStatus()
         }
 
         onAccepted: {
