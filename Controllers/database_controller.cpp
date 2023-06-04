@@ -111,12 +111,12 @@ QVector<BookModel *> DatabaseController::ReadAll()
         book->setId(record.value("Id").toInt());
         book->setTitle(record.value("Title").toString());
         book->setAuthor(record.value("Author").toString());
-        book->setDescription(record.value("Description").toString());
-        auto cover = record.value("Cover");
-        if (cover != NULL)
-        {
-            book->setCover(QImage::fromData(cover.toByteArray()));
-        }
+
+        // check description
+        auto description = record.value("Description");
+        book->setDescription(description.isNull() ? "" : description.toString());
+
+        book->setCover(QImage::fromData(record.value("Cover").toByteArray()));
         book->setReadingStatus(static_cast<Status>(record.value("ReadingStatus").toInt()));
 
         books.append(book);
