@@ -153,3 +153,29 @@ QVector<BookModel *> DatabaseController::ReadByStatus(Status readingStatus)
 
     return books;
 }
+
+bool DatabaseController::UpdateBook(BookModel &model)
+{
+    QSqlTableModel table(nullptr, QSqlDatabase::database());
+    table.setTable("books");
+    table.setFilter("Id=" + QString::number(model.Id()));
+    table.select();
+
+    if (table.rowCount() == 1)
+    {
+        QSqlRecord record = table.record();
+        record.setValue("Title", model.Title());
+        record.setValue("Author", model.Author());
+        record.setValue("Description", model.Description());
+        auto data = imageToBlob(model.Cover());
+        record.setValue("Cover", data);
+        record.setValue("ReadingStatus", static_cast<int>(model.ReadingStatus()));
+
+        if (table.setRecord(0, record) && table.submitAll())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}

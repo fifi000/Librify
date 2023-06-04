@@ -48,7 +48,10 @@ else()
 endif()
 
 target_link_libraries(Librify
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Sql)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core 
+  Qt${QT_VERSION_MAJOR}::Quick 
+  Qt${QT_VERSION_MAJOR}::Sql
+)
 
 set_target_properties(Librify PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

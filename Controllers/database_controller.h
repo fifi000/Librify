@@ -13,6 +13,8 @@ class DatabaseController
     int CreateBook(const BookModel &model);
     QVector<BookModel *> ReadAll();
     QVector<BookModel *> ReadByStatus(Status readingStatus);
+    bool UpdateBook(BookModel &model);
+    bool DeleteBook(BookModel &model);
 
   private:
     void CreateTable();
