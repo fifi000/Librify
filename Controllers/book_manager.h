@@ -15,7 +15,8 @@ class BookManager : public QObject
   public:
     explicit BookManager(QObject *parent = nullptr);
     Q_INVOKABLE void addBook(QString title, QString author, QString description, QString coverPath, QString status);
-    Q_INVOKABLE void updateBook(QString title, QString author, QString description, QString coverPath, QString status);
+    Q_INVOKABLE void updateBook(int id, QString title, QString author, QString description, QString coverPath,
+                                QString status);
     Q_INVOKABLE void changeStatus(QString status);
     Q_INVOKABLE QString getStringStatus();
 
