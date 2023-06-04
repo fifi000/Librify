@@ -3,8 +3,7 @@
 #include <QDebug>
 #include <QPainter>
 
-BookManager::BookManager(QObject *parent)
-    : QObject{parent}
+BookManager::BookManager(QObject *parent) : QObject{parent}
 {
     this->m_DbController = DatabaseController();
 }
@@ -43,35 +42,43 @@ QImage createInfoCover(QString title, QString author)
     return coverImage;
 }
 
-void BookManager::addBook(QString title, QString author, QString description, QString coverPath, QString status)
+BookModel *BookManager::getBook(QString title, QString author, QString description, QString coverPath, QString status)
 {
-    BookModel book;
+    BookModel *book = new BookModel();
 
-    book.setTitle(title);
-    book.setAuthor(author);
-    book.setDescription(description);
-    book.setReadingStatus(StatusConventer[status]);
+    book->setTitle(title);
+    book->setAuthor(author);
+    book->setDescription(description);
+    book->setReadingStatus(StatusConventer[status]);
 
     if (coverPath.startsWith("file:///"))
     {
         coverPath.remove("file:///");
-        qDebug() << coverPath;
     }
+
     QImage cover = coverPath.isEmpty() ? createInfoCover(title, author) : QImage(coverPath);
 
-    if (cover.isNull())
-    {
-        qDebug("cover is null");
-        throw;
-    }
+    book->setCover(cover);
 
-    book.setCover(cover);
+    return book;
+}
 
-    int id = this->m_DbController.CreateBook(book);
-    if (id > 0 && book.ReadingStatus() == this->m_CurrentStatus)
-    {
-        book.setId(id);
-    }
+void BookManager::addBook(QString title, QString author, QString description, QString coverPath, QString status)
+{
+    BookModel *book = getBook(title, author, description, coverPath, status);
+
+    this->m_DbController.CreateBook(*book);
+
+    delete book;
+}
+
+void BookManager::updateBook(QString title, QString author, QString description, QString coverPath, QString status)
+{
+    BookModel *book = getBook(title, author, description, coverPath, status);
+
+    this->m_DbController.UpdateBook(*book);
+
+    delete book;
 }
 
 void BookManager::changeStatus(QString status)

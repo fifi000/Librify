@@ -15,6 +15,7 @@ class BookManager : public QObject
   public:
     explicit BookManager(QObject *parent = nullptr);
     Q_INVOKABLE void addBook(QString title, QString author, QString description, QString coverPath, QString status);
+    Q_INVOKABLE void updateBook(QString title, QString author, QString description, QString coverPath, QString status);
     Q_INVOKABLE void changeStatus(QString status);
     Q_INVOKABLE QString getStringStatus();
 
@@ -27,6 +28,7 @@ class BookManager : public QObject
     void BooksChanged();
 
   private:
+    BookModel *getBook(QString title, QString author, QString description, QString coverPath, QString status);
     QVector<BookModel *> m_Books;
     Status m_CurrentStatus;
     DatabaseController m_DbController;
