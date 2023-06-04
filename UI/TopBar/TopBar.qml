@@ -1,9 +1,11 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 import "../BookForm"
 
 Rectangle {
     property int sideMargine: 15
+
     id: upperBar
 
     SearchBar {
@@ -40,19 +42,37 @@ Rectangle {
 
     BookForm {
         id: bookFormDialog
+        title: "Add Book"
 
         onOpened: {
-            bookFormDialog.bookTitle = ""
-            bookFormDialog.bookAuthor = ""
-            bookFormDialog.bookDescription = ""
-            bookFormDialog.bookCoverPath = ""
-            bookFormDialog.readingStatus = ""
+            bookTitle = ""
+            bookAuthor = ""
+            bookDescription = ""
+            bookCoverPath = ""
+            readingStatus = ""
         }
 
         onAccepted: {
             BookManager.addBook(bookTitle, bookAuthor, bookDescription,
                                 bookCoverPath, readingStatus)
             close()
+        }
+
+        loader.sourceComponent: addButtonComponent
+    }
+
+    Component {
+        id: addButtonComponent
+        Row {
+            layoutDirection: Qt.RightToLeft
+            Button {
+                text: "Add"
+                onClicked: {
+                    if (bookFormDialog.isFormValid()) {
+                        bookFormDialog.accepted()
+                    }
+                }
+            }
         }
     }
 }

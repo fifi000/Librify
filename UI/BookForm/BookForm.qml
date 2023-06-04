@@ -2,13 +2,17 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Dialog {
-    title: "Add Book"
-
     property string bookTitle: ""
     property string bookAuthor: ""
     property string bookDescription: ""
     property string readingStatus: ""
     property string bookCoverPath: ""
+
+    property alias loader: mainColumnLoader
+
+    function isFormValid() {
+        return bookTitle !== "" && bookAuthor !== "" && readingStatus !== ""
+    }
 
     width: parent.width / 3
     padding: 15
@@ -24,7 +28,7 @@ Dialog {
 
         // Title
         Label {
-            text: "Title:"
+            text: "Title"
         }
         TextField {
             id: titleField
@@ -38,7 +42,7 @@ Dialog {
 
         // Author
         Label {
-            text: "Author:"
+            text: "Author"
         }
         TextField {
             id: authorField
@@ -52,7 +56,7 @@ Dialog {
 
         // Description
         Label {
-            text: "Description:"
+            text: "Description"
         }
         TextArea {
             id: descriptionField
@@ -71,7 +75,7 @@ Dialog {
 
         // Cover
         Label {
-            text: "Cover:"
+            text: "Cover"
         }
         Item {
             anchors {
@@ -109,7 +113,7 @@ Dialog {
 
         // Reading Status
         Label {
-            text: "Reading Status:"
+            text: "Reading Status"
         }
         Row {
             Repeater {
@@ -125,21 +129,11 @@ Dialog {
             }
         }
 
-        // Submit Button
-        Button {
-            text: "Add Book"
+        Loader {
+            id: mainColumnLoader
             anchors {
+                left: parent.left
                 right: parent.right
-            }
-
-            onClicked: {
-                if (titleField.text.trim() === "" || authorField.text.trim(
-                            ) === "" || readingStatus.trim() === "") {
-
-                    console.log("Please enter the title and author.")
-                } else {
-                    bookFormDialog.accepted()
-                }
             }
         }
     }
