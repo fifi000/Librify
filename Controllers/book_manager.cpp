@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QPainter>
+#include <QUrl>
 
 BookManager::BookManager(QObject *parent) : QObject{parent}
 {
@@ -54,11 +55,18 @@ BookModel *BookManager::getBook(QString title, QString author, QString descripti
     if (coverPath.startsWith("file:///"))
     {
         coverPath.remove("file:///");
+        book->setCover(QImage(coverPath));
     }
-
-    QImage cover = coverPath.isEmpty() ? createInfoCover(title, author) : QImage(coverPath);
-
-    book->setCover(cover);
+    else if (coverPath.startsWith("data:image/PNG;base64,"))
+    {
+        coverPath.remove("data:image/PNG;base64,");
+        QByteArray data = QByteArray::fromBase64(coverPath.toLatin1());
+        book->setCover(QImage::fromData(data, "PNG"));
+    }
+    else
+    {
+        book->setCover(createInfoCover(title, author));
+    }
 
     return book;
 }
@@ -70,15 +78,20 @@ void BookManager::addBook(QString title, QString author, QString description, QS
     this->m_DbController.CreateBook(*book);
 
     delete book;
+
+    this->changeStatus(this->getStringStatus());
 }
 
-void BookManager::updateBook(QString title, QString author, QString description, QString coverPath, QString status)
+void BookManager::updateBook(int id, QString title, QString author, QString description, QString coverPath,
+                             QString status)
 {
     BookModel *book = getBook(title, author, description, coverPath, status);
+    book->setId(id);
 
     this->m_DbController.UpdateBook(*book);
 
     delete book;
+    this->changeStatus(this->getStringStatus());
 }
 
 void BookManager::changeStatus(QString status)
