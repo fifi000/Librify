@@ -8,6 +8,7 @@ Rectangle {
 
     function updateButtonHighlight() {
         const status = BookManager.getStringStatus()
+
         readingLink.highlighted = readingLink.text === status
         finishedLink.highlighted = finishedLink.text === status
         toReadLink.highlighted = toReadLink.text === status
