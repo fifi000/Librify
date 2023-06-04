@@ -161,21 +161,28 @@ bool DatabaseController::UpdateBook(BookModel &model)
     table.setFilter("Id=" + QString::number(model.Id()));
     table.select();
 
-    if (table.rowCount() == 1)
+    if (table.rowCount() != 1)
     {
-        QSqlRecord record = table.record();
-        record.setValue("Title", model.Title());
-        record.setValue("Author", model.Author());
-        record.setValue("Description", model.Description());
-        auto data = imageToBlob(model.Cover());
-        record.setValue("Cover", data);
-        record.setValue("ReadingStatus", static_cast<int>(model.ReadingStatus()));
-
-        if (table.setRecord(0, record) && table.submitAll())
-        {
-            return true;
-        }
+        qDebug() << "Found " << table.rowCount() << "mathing rows with id = " << model.Id();
+        return false;
     }
 
-    return false;
+    QSqlRecord record = table.record(0);
+
+    record.setValue("Id", model.Id());
+    record.setValue("Title", model.Title());
+    record.setValue("Author", model.Author());
+    record.setValue("Description", model.Description());
+    auto data = imageToBlob(model.Cover());
+    record.setValue("Cover", data);
+    record.setValue("ReadingStatus", static_cast<int>(model.ReadingStatus()));
+
+    if (table.setRecord(0, record) == false)
+    {
+        qDebug() << "Unable to update book with ID " << model.Id() << "\n Error: " << table.lastError().text();
+
+        return false;
+    }
+
+    return true;
 }
