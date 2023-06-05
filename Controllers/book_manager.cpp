@@ -100,6 +100,7 @@ void BookManager::deleteBook(int id)
     book.setId(id);
 
     this->m_DbController.DeleteBook(book);
+    this->changeStatus(this->getStringStatus());
 }
 
 void BookManager::changeStatus(QString status)
