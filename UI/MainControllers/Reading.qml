@@ -34,9 +34,7 @@ Rectangle {
                             editBookForm.bookAuthor = modelData.Author
                             editBookForm.bookDescription = modelData.Description
                             editBookForm.bookCoverPath = modelData.Picture
-                            //title, author, description, readingStatus, coverPath
-//                            editBookForm.initForm(modelData.Title, modelData.Author,
-//                                                  modelData.Description, "", modelData.Picture)
+                            editBookForm.readingStatus = BookManager.getStringStatus()
                             editBookForm.open()
                         }
                     }

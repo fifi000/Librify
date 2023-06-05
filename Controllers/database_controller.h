@@ -15,6 +15,7 @@ class DatabaseController
     QVector<BookModel *> ReadByStatus(Status readingStatus);
     bool UpdateBook(BookModel &bookModel);
     bool DeleteBook(BookModel &bookModel);
+    ~DatabaseController();
 
   private:
     void CreateTable();

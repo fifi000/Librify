@@ -209,3 +209,13 @@ bool DatabaseController::DeleteBook(BookModel &bookModel)
     qDebug() << "Book with ID " << bookModel.Id() << " deleted successfully";
     return true;
 }
+
+DatabaseController::~DatabaseController()
+{
+    auto db = QSqlDatabase::database();
+
+    if (db.open())
+    {
+        db.close();
+    }
+}
