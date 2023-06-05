@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
+
     BookManager m_bookManager;
     m_bookManager.changeStatus("Reading");
 

@@ -10,8 +10,7 @@ Window {
     //property string fontFamily: "Arial Rounded MT"
     property string appFontFamily: "Segoe UI"
     property int fontSize: 24
-
-    property variant readingStatuses: ["Reading", "To Read", "Finished"]
+    property var readingStatuses: ["Reading", "Finished", "To Read"]
 
     id: mainWindow
     width: 1280
