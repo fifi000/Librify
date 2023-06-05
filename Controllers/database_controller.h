@@ -10,11 +10,11 @@ class DatabaseController
 {
   public:
     DatabaseController();
-    int CreateBook(const BookModel &model);
+    int CreateBook(const BookModel &bookModel);
     QVector<BookModel *> ReadAll();
     QVector<BookModel *> ReadByStatus(Status readingStatus);
-    bool UpdateBook(BookModel &model);
-    bool DeleteBook(BookModel &model);
+    bool UpdateBook(BookModel &bookModel);
+    bool DeleteBook(BookModel &bookModel);
 
   private:
     void CreateTable();

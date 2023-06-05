@@ -72,10 +72,10 @@ QByteArray imageToBlob(const QImage &img)
 
 int DatabaseController::CreateBook(const BookModel &bookModel)
 {
-    QSqlTableModel model(nullptr, QSqlDatabase::database());
-    model.setTable("books");
+    QSqlTableModel table(nullptr, QSqlDatabase::database());
+    table.setTable("books");
 
-    QSqlRecord record = model.record();
+    QSqlRecord record = table.record();
     record.setValue("Title", bookModel.Title());
     record.setValue("Author", bookModel.Author());
     record.setValue("Description", bookModel.Description());
@@ -83,30 +83,30 @@ int DatabaseController::CreateBook(const BookModel &bookModel)
     record.setValue("Cover", data);
     record.setValue("ReadingStatus", static_cast<int>(bookModel.ReadingStatus()));
 
-    if (model.insertRecord(-1, record) == false)
+    if (table.insertRecord(-1, record) == false)
     {
-        qDebug() << "Unable to add book into table\n" << model.lastError().text();
+        qDebug() << "Unable to add book into table\n" << table.lastError().text();
 
         return -1;
     }
 
-    return model.record(model.rowCount() - 1).value("Id").toInt();
+    return table.record(table.rowCount() - 1).value("Id").toInt();
 }
 
 QVector<BookModel *> DatabaseController::ReadAll()
 {
     QVector<BookModel *> books;
 
-    QSqlTableModel model(nullptr, QSqlDatabase::database());
-    model.setTable("books");
-    model.select();
+    QSqlTableModel table(nullptr, QSqlDatabase::database());
+    table.setTable("books");
+    table.select();
 
     QSqlRecord record;
     BookModel *book{nullptr};
-    for (int i = 0; i < model.rowCount(); i++)
+    for (int i = 0; i < table.rowCount(); i++)
     {
         book = new BookModel();
-        record = model.record(i);
+        record = table.record(i);
 
         book->setId(record.value("Id").toInt());
         book->setTitle(record.value("Title").toString());
@@ -129,17 +129,17 @@ QVector<BookModel *> DatabaseController::ReadByStatus(Status readingStatus)
 {
     QVector<BookModel *> books;
 
-    QSqlTableModel model(nullptr, QSqlDatabase::database());
-    model.setTable("books");
-    model.setFilter("ReadingStatus=" + QString::number(static_cast<int>(readingStatus)));
-    model.select();
+    QSqlTableModel table(nullptr, QSqlDatabase::database());
+    table.setTable("books");
+    table.setFilter("ReadingStatus=" + QString::number(static_cast<int>(readingStatus)));
+    table.select();
 
     QSqlRecord record;
     BookModel *book{nullptr};
-    for (int i = 0; i < model.rowCount(); i++)
+    for (int i = 0; i < table.rowCount(); i++)
     {
         book = new BookModel();
-        record = model.record(i);
+        record = table.record(i);
 
         book->setId(record.value("Id").toInt());
         book->setTitle(record.value("Title").toString());
@@ -154,32 +154,32 @@ QVector<BookModel *> DatabaseController::ReadByStatus(Status readingStatus)
     return books;
 }
 
-bool DatabaseController::UpdateBook(BookModel &model)
+bool DatabaseController::UpdateBook(BookModel &bookModel)
 {
     QSqlTableModel table(nullptr, QSqlDatabase::database());
     table.setTable("books");
-    table.setFilter("Id=" + QString::number(model.Id()));
+    table.setFilter("Id=" + QString::number(bookModel.Id()));
     table.select();
 
     if (table.rowCount() != 1)
     {
-        qDebug() << "Found " << table.rowCount() << "mathing rows with id = " << model.Id();
+        qDebug() << "Found " << table.rowCount() << "mathing rows with id = " << bookModel.Id();
         return false;
     }
 
     QSqlRecord record = table.record(0);
 
-    record.setValue("Id", model.Id());
-    record.setValue("Title", model.Title());
-    record.setValue("Author", model.Author());
-    record.setValue("Description", model.Description());
-    auto data = imageToBlob(model.Cover());
+    record.setValue("Id", bookModel.Id());
+    record.setValue("Title", bookModel.Title());
+    record.setValue("Author", bookModel.Author());
+    record.setValue("Description", bookModel.Description());
+    auto data = imageToBlob(bookModel.Cover());
     record.setValue("Cover", data);
-    record.setValue("ReadingStatus", static_cast<int>(model.ReadingStatus()));
+    record.setValue("ReadingStatus", static_cast<int>(bookModel.ReadingStatus()));
 
     if (table.setRecord(0, record) == false)
     {
-        qDebug() << "Unable to update book with ID " << model.Id() << "\n Error: " << table.lastError().text();
+        qDebug() << "Unable to update book with ID " << bookModel.Id() << "\n Error: " << table.lastError().text();
 
         return false;
     }
