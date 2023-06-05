@@ -11,6 +11,6 @@ enum Status
     Finished
 };
 
-const QHash<QString, Status> StatusConventer{{"Reading", Reading}, {"To Read", ToRead}, {"Finished", Finished}};
+const QHash<QString, Status> StatusConverter{{"Reading", Reading}, {"To Read", ToRead}, {"Finished", Finished}};
 
 #endif // ENUMS_H

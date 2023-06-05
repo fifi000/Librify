@@ -50,7 +50,7 @@ BookModel *BookManager::getBook(QString title, QString author, QString descripti
     book->setTitle(title);
     book->setAuthor(author);
     book->setDescription(description);
-    book->setReadingStatus(StatusConventer[status]);
+    book->setReadingStatus(StatusConverter[status]);
 
     if (coverPath.startsWith("file:///"))
     {
@@ -104,14 +104,14 @@ void BookManager::deleteBook(int id)
 }
 
 void BookManager::changeStatus(QString status)
-{   
-    if (StatusConventer.contains(status))
+{
+    if (StatusConverter.contains(status))
     {
         for (int i = 0; i < this->m_Books.count(); i++)
         {
             delete m_Books.at(i);
         }
-        this->m_CurrentStatus = StatusConventer[status];
+        this->m_CurrentStatus = StatusConverter[status];
         setBooks(m_DbController.ReadByStatus(this->m_CurrentStatus));
     }
     else
@@ -122,7 +122,7 @@ void BookManager::changeStatus(QString status)
 
 QString BookManager::getStringStatus()
 {
-    for (auto it = StatusConventer.begin(); it != StatusConventer.end(); ++it)
+    for (auto it = StatusConverter.begin(); it != StatusConverter.end(); ++it)
     {
         if (it.value() == this->m_CurrentStatus)
         {
