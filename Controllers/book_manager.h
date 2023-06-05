@@ -17,6 +17,7 @@ class BookManager : public QObject
     Q_INVOKABLE void addBook(QString title, QString author, QString description, QString coverPath, QString status);
     Q_INVOKABLE void updateBook(int id, QString title, QString author, QString description, QString coverPath,
                                 QString status);
+    Q_INVOKABLE void deleteBook(int id);
     Q_INVOKABLE void changeStatus(QString status);
     Q_INVOKABLE QString getStringStatus();
 

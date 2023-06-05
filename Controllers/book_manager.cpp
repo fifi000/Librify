@@ -94,6 +94,14 @@ void BookManager::updateBook(int id, QString title, QString author, QString desc
     this->changeStatus(this->getStringStatus());
 }
 
+void BookManager::deleteBook(int id)
+{
+    BookModel book;
+    book.setId(id);
+
+    this->m_DbController.DeleteBook(book);
+}
+
 void BookManager::changeStatus(QString status)
 {   
     if (StatusConventer.contains(status))

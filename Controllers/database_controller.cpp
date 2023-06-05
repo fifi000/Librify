@@ -186,3 +186,26 @@ bool DatabaseController::UpdateBook(BookModel &bookModel)
 
     return true;
 }
+
+bool DatabaseController::DeleteBook(BookModel &bookModel)
+{
+    QSqlTableModel table(nullptr, QSqlDatabase::database());
+    table.setTable("books");
+    table.setFilter("Id=" + QString::number(bookModel.Id()));
+    table.select();
+
+    if (table.rowCount() != 1)
+    {
+        qDebug() << "Found " << table.rowCount() << " matching rows with id = " << bookModel.Id();
+        return false;
+    }
+
+    if (table.removeRow(0) == false)
+    {
+        qDebug() << "Unable to delete book with ID " << bookModel.Id() << "\n Error: " << table.lastError().text();
+        return false;
+    }
+
+    qDebug() << "Book with ID " << bookModel.Id() << " deleted successfully";
+    return true;
+}
