@@ -14,7 +14,7 @@ Dialog {
         return bookTitle !== "" && bookAuthor !== "" && readingStatus !== ""
     }
 
-    width: parent.width / 3
+    width: 430
     padding: 15
 
     Column {
