@@ -12,9 +12,3 @@ Librify is a desktop application built with Qt Creator that allows users to mana
 
 ![](/img/base_view.png)
 ![](/img/edit_book_view.png)
-
-## Getting Started
-
-1. **Requirements**:
-
-2. **Build and Run**:
